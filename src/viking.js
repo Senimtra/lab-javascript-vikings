@@ -77,7 +77,6 @@ class War {
     }
     return saxNewHealth;
   }
-
   saxonAttack() {
     let randomViking =
       this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length)];
@@ -89,7 +88,40 @@ class War {
     }
     return vikNewHealth;
   }
-  showStatus() {}
+
+  // #############################################
+  // ## Super Bonus - Iteration 5: showStatus() ##
+  // #############################################
+
+  attack = (Faction) => {
+    let randomSaxon =
+      this.saxonArmy[Math.floor(Math.random() * this.saxonArmy.length)];
+    let randomViking =
+      this.vikingArmy[Math.floor(Math.random() * this.vikingArmy.length)];
+    if (Faction === 'vikingAttack') {
+      let saxNewHealth = randomSaxon.receiveDamage(randomViking.strength);
+      if (randomSaxon.health <= 0) {
+        this.saxonArmy.pop(randomSaxon);
+      }
+      return saxNewHealth;
+    } else {
+      let vikNewHealth = randomViking.receiveDamage(randomSaxon.strength);
+      if (randomViking.health <= 0) {
+        this.vikingArmy.pop(randomViking);
+      }
+      return vikNewHealth;
+    }
+  };
+
+  showStatus() {
+    if (!this.saxonArmy.length) {
+      return 'Vikings have won the war of the century!';
+    } else if (!this.vikingArmy.length) {
+      return 'Saxons have fought for their lives and survived another day...';
+    } else {
+      return 'Vikings and Saxons are still in the thick of battle.';
+    }
+  }
 }
 
 // The following is required to make unit tests work.
